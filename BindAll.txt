@@ -1,6 +1,6 @@
 ## Title: BindAll
 ## Author: ownedbynico
-## Version: 1.1
+## Version: 1.3
 ## Description: Binds your new collection stuff
 ## APIVersion: 100033
 ## DependsOn: LibAddonMenu-2.0

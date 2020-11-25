@@ -1,6 +1,6 @@
 BA = BA or {}
 BA.name = "BindAll"
-BA.version = "1.1"
+BA.version = "1.3"
 
 BA.disabledBags = {
 	[3] = true, -- BAG_GUILDBANK
@@ -18,13 +18,26 @@ function BA.BindAllUnknown(bag)
 	-- also iterate the eso plus bank
 	if bag == BAG_BANK and IsESOPlusSubscriber() == true then BA.BindAllUnknown(BAG_SUBSCRIBER_BANK) end
 	
-	for i = 0, GetBagSize(bag) - 1 do
-		local itemLink = GetItemLink(bag, i, LINK_STYLE_BRACKETS)
+	local items = {}
+	
+	-- scan bag
+	for slot = 0, GetBagSize(bag) - 1 do
+		local itemLink = GetItemLink(bag, slot, LINK_STYLE_BRACKETS)
 		if IsItemLinkSetCollectionPiece(itemLink) == true and IsItemSetCollectionPieceUnlocked(GetItemLinkItemId(itemLink)) == false then
-			BindItem(bag, i)
-			if BA.savedVariables.printToChat == true then
-				d("Item bound: " .. itemLink)
+			local itemName = GetItemLinkName(itemLink)
+			if items[itemName] == nil then
+				items[itemName] = {}
+				items[itemName].link = itemLink
+				items[itemName].slot = slot
 			end
+		end
+	end
+	
+	-- bind items
+	for item, info in pairs(items) do
+		BindItem(bag, info.slot)
+		if BA.savedVariables.printToChat == true then
+			d("Item bound: " .. info.link)
 		end
 	end
 end
