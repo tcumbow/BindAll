@@ -2,7 +2,7 @@ function BA.initMenu()
 
 	local defaults = {
 		accountWide = true,
-		autoBind = false,
+		autoBind = true,
 		printToChat = false,
 	}
 
