@@ -1,0 +1,9 @@
+{
+    "emeraldwalk.runonsave": {
+    "commands": [
+        {
+            "cmd": "robocopy .\\BindAll A:\\BindAll /mir"
+        }
+    ]
+    }
+}
